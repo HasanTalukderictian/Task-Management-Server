@@ -1,23 +1,22 @@
-const express = require('express')
-const app = express()
-
+const express = require('express');
+const app = express();
 const port = process.env.PORT || 5000;
-require('dotenv').config()
+require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
-const cors = require('micro-cors')();
+const cors = require('micro-cors')(); // Use micro-cors for CORS handling
 
+// ...
 
-
-
-// middleware 
+// Define your CORS options
 const corsOptions = {
-    origin: 'http://localhost:3000', // Replace with the actual origin of your client application
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Add the allowed HTTP methods
-  };
-  
-  // Apply the CORS middleware with the specified options
-  app.use(cors(corsOptions));
+  origin: 'http://localhost:3000', // Replace with the actual origin of your client application
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Add the allowed HTTP methods
+};
+
+// Apply the CORS middleware with the specified options
+app.use(cors(corsOptions));
+
 app.use(express.json())
 
 
@@ -147,7 +146,7 @@ async function run() {
         // Connect the client to the server	(optional starting in v4.7)
 
         // Send a ping to confirm a successful connection
-       client.db("admin").command({ ping: 1 });
+      await client.db("admin").command({ ping: 1 });
         console.log("Pinged your deployment. You successfully connected to MongoDB!");
     } finally {
         // Ensures that the client will close when you finish/error
